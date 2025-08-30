@@ -3,3 +3,6 @@ langgraph==0.6.2
 dotenv==0.9.9
 arxiv==2.2.0
 semanticscholar==0.10.0
+tqdm==4.67.1
+certifi
+scholarly==1.7.11
