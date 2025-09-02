@@ -9,3 +9,6 @@ scholarly==1.7.11
 fastapi==0.116.1
 sqlalchemy==2.0.41
 uvicorn==0.35.0
+bcrypt==4.3.0
+jose==1.0.0
+python-jose[cryptography]
