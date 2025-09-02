@@ -6,3 +6,6 @@ semanticscholar==0.10.0
 tqdm==4.67.1
 certifi
 scholarly==1.7.11
+fastapi==0.116.1
+sqlalchemy==2.0.41
+uvicorn==0.35.0
