@@ -6,7 +6,7 @@ from fastapi import HTTPException, Depends, APIRouter
 
 router = APIRouter()
 
-@router.get("/api/login")
+@router.get("login")
 async def login(form_data: LoginModel, db: Session = Depends(get_db)):
     try:
         return login(form_data, db)
@@ -16,7 +16,7 @@ async def login(form_data: LoginModel, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Service Error")
 
 
-@router.get("/api/register")
+@router.get("register")
 async def register(form_data: RegisterModel, db: Session = Depends(get_db)):
     try:
         return register(form_data, db)
