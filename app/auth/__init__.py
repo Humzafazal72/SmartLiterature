@@ -1,2 +1,2 @@
 from .auth import login, register
-from .verify import get_current_user
+from .util import get_current_user
