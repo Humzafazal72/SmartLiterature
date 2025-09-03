@@ -1,7 +1,7 @@
-from schema import AgentState
+from .schema import AgentState
 from langgraph.graph import StateGraph,START,END
 from langgraph.checkpoint.sqlite import SqliteSaver
-from agents import clarifier, keyworder, scholar_searcher, Selector_1, Selector_2, metadata_getter, clarifier_router
+from .agents import clarifier, keyworder, scholar_searcher, Selector_1, Selector_2, metadata_getter, clarifier_router
 
 memory = SqliteSaver.from_conn_string("sqlite:///state.db")
 

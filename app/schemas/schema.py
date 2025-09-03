@@ -1,3 +1,4 @@
+from typing import Any, Optional
 from pydantic import BaseModel, EmailStr, Field
 
 class LoginModel(BaseModel): 
@@ -11,3 +12,9 @@ class RegisterModel(BaseModel):
 
 class AgentInput(BaseModel):
     user_message: str
+
+class AgentEvent(BaseModel):
+    event: str             
+    node_name: Optional[str] = None
+    node_output: Optional[Any] = None
+    data: Optional[str] = None

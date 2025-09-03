@@ -2,7 +2,7 @@ import requests
 from scholarly import scholarly
 from langchain_groq import ChatGroq
 from langchain_core.messages import BaseMessage,SystemMessage,HumanMessage
-from schema import AgentState, Clarification, KeywordExtractionOutput, Selection
+from .schema import AgentState, Clarification, KeywordExtractionOutput, Selection
 
 
 clarifier_llm = ChatGroq(model="moonshotai/kimi-k2-instruct").with_structured_output(Clarification)

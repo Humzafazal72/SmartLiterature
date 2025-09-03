@@ -1,10 +1,10 @@
 import os
 import bcrypt
-from database import User
 from datetime import datetime
 from dotenv import load_dotenv
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
+from app.database import User, get_db
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
@@ -34,7 +34,7 @@ def create_access_token(data: dict) -> str:
 
 
 # used to verify the user and also returns the current user.
-def get_current_user( db: Session, token: str = Depends(oauth2_scheme)) -> User:
+def get_current_user( db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)) -> User:
     try:
         data = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = data.get("sub")

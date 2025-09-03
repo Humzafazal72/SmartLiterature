@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from app.routers import auth
-from app.routers import agent_api
+from app.routers import auth, agent_api
 
 app = FastAPI()
 

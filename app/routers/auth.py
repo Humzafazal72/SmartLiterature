@@ -1,6 +1,5 @@
-from app.database import get_db
-from app.auth import login, register
 from sqlalchemy.orm import Session
+from app import login, register, get_db
 from app.schemas import LoginModel,RegisterModel
 from fastapi import HTTPException, Depends, APIRouter
 

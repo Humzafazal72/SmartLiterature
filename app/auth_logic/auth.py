@@ -1,8 +1,8 @@
-from database import User
+from app.database import User
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from schemas import LoginModel, RegisterModel
-from util import verify_pw,generate_hash, create_access_token
+from app.schemas import LoginModel, RegisterModel
+from .util import verify_pw,generate_hash, create_access_token
 
 
 def login(login_data: LoginModel, db: Session):
