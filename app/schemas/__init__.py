@@ -1,1 +1,1 @@
-from .auth import LoginModel, RegisterModel
+from .schema import LoginModel, RegisterModel, AgentInput

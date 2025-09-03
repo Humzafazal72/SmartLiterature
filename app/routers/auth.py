@@ -16,7 +16,7 @@ async def login(form_data: LoginModel, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal Service Error")
 
 
-@router.get("register")
+@router.post("register")
 async def register(form_data: RegisterModel, db: Session = Depends(get_db)):
     try:
         return register(form_data, db)
