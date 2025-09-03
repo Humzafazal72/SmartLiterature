@@ -1,7 +1,5 @@
 .env
-/__pycache__
-/app/__pycache__
-/app/database/__pycache__
-/app/routers/__pycache__
-/app/routers/Agent/__pycache__
-/app/schemas/__pycache__
+
+__pycache__/
+*.py[cod]
+*$py.class
