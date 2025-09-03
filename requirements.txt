@@ -16,3 +16,4 @@ langgraph-checkpoint-sqlite==2.0.11
 starlette-sse==0.0.1
 pymysql==1.1.2
 pydantic[email]
+alembic==1.16.5

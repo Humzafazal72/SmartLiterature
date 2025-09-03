@@ -1,10 +1,10 @@
 import os
 import bcrypt
-from datetime import datetime
 from dotenv import load_dotenv
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from app.database import User, get_db
+from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
@@ -18,16 +18,17 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 oauth2_scheme = OAuth2PasswordBearer("login")
 
 def generate_hash(password: str) -> str:
-    return bcrypt.hashpw(password, bcrypt.gensalt())
+    hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    return hashed.decode("utf-8")   # store as string in DB
 
 
-def verify_pw(password: str, hash: str) -> str:
-    return bcrypt.checkpw(password=password,hashed_password=hash)
+def verify_pw(password: str, hashed_password: str) -> bool:
+    return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
 
 
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
-    expire = datetime.utcnow() + ACCESS_TOKEN_EXPIRE_MINUTES
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
 
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
