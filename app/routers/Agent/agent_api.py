@@ -10,7 +10,7 @@ from app.schemas import AgentEvent
 
 router = APIRouter()
 
-@router.post("/get_agent", response_model=AgentEvent)  # Disable response model validation
+@router.post("/get_agent")  
 async def get_agent(input: AgentInput, chat_id: str, 
                     ):
     config = {"configurable": {"thread_id": chat_id}}
@@ -21,11 +21,17 @@ async def get_agent(input: AgentInput, chat_id: str,
             async for event in graph_app.astream({"messages": message}, config=config):
                 for node_name, node_output in event.items():
                     # Create the event payload
-                    payload = AgentEvent(
-                        event="update",
-                        node_name=node_name,
-                        node_output=str(node_output)  # force string
-                    )
+                    if node_name=="merger" or node_name=="clarificationAgent":
+                        payload = AgentEvent(
+                            event="update",
+                            node_name=node_name,
+                            node_output=str(node_output)  # force string
+                        )
+                    else:
+                        payload = AgentEvent(
+                            event="update",
+                            node_name=node_name  
+                        )
                     
                     # Format as SSE event
                     event_data = f"data: {json.dumps(payload.dict())}\n\n"
