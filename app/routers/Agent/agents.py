@@ -3,7 +3,7 @@ from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage
 from .schema import AgentState, Clarification, KeywordExtractionOutput, Selection
 
-clarifier_llm = ChatGroq(model="moonshotai/kimi-k2-instruct").with_structured_output(Clarification)
+clarifier_llm = ChatGroq(model="llama-3.3-70b-versatile").with_structured_output(Clarification)
 keyword_llm = ChatGroq(model="llama-3.3-70b-versatile").with_structured_output(KeywordExtractionOutput)
 Selecter_llm = ChatGroq(model="llama-3.3-70b-versatile").with_structured_output(Selection)
 
