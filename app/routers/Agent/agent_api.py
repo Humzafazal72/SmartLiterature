@@ -20,7 +20,7 @@ async def get_agent(input: AgentInput, chat_id: str,
     
     async def event_generator():
         try:
-            async with AsyncSqliteSaver.from_conn_string(f"{chat_id}.db") as checkpointer:
+            async with AsyncSqliteSaver.from_conn_string(f"Data/{chat_id}.db") as checkpointer:
                 graph_app = build_graph().compile(checkpointer=checkpointer)
                 async for event in graph_app.astream({"messages": message}, config=config):
                     for node_name, node_output in event.items():
