@@ -13,7 +13,7 @@ router = APIRouter()
 
 @router.post("/get_agent")  
 async def get_agent(input: AgentInput, chat_id: str, 
-                    ):
+                    user: User = Depends(get_current_user)):
     config = {"configurable": {"thread_id": chat_id}}
     message = HumanMessage(content=input.user_message)
 
