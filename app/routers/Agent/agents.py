@@ -1,9 +1,12 @@
 import requests
-from scholarly import scholarly
 from langchain_groq import ChatGroq
-from langchain_core.messages import BaseMessage,SystemMessage,HumanMessage
+from scholarly import scholarly, ProxyGenerator
+from langchain_core.messages import SystemMessage
 from .schema import AgentState, Clarification, KeywordExtractionOutput, Selection
 
+pg = ProxyGenerator()
+pg.Tor_Internal(tor_cmd="tor")
+scholarly.use_proxy(pg)
 
 clarifier_llm = ChatGroq(model="moonshotai/kimi-k2-instruct").with_structured_output(Clarification)
 keyword_llm = ChatGroq(model="llama-3.3-70b-versatile").with_structured_output(KeywordExtractionOutput)
@@ -21,7 +24,7 @@ def scholar_searcher(state: AgentState):
         for pub in scholarly.search_pubs(query):
             title_results.add(pub["bib"]["title"])
             count += 1
-            if count >= 10:
+            if count >= 5:
                 break 
     
     return {"scholar_titles": title_results}

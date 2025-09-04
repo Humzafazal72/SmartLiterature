@@ -7,13 +7,12 @@ from app.schemas import AgentInput
 from app.auth_logic.util import get_current_user
 from langchain_core.messages import HumanMessage
 from app.schemas import AgentEvent
-from sqlalchemy.orm import Session
 
 router = APIRouter()
 
 @router.post("/get_agent", response_model=AgentEvent)  # Disable response model validation
 async def get_agent(input: AgentInput, chat_id: str, 
-                    user: User = Depends(get_current_user)):
+                    ):
     config = {"configurable": {"thread_id": chat_id}}
     message = HumanMessage(content=input.user_message)
 
