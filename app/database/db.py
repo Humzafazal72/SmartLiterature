@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 load_dotenv()
 
 
-MYSQL_URL  = f"mysql+pymysql://root:{os.environ['DB_PASSWORD']}@localhost:3306/litreview"
+MYSQL_URL  = f"mysql+pymysql://root:{os.environ['DB_PASSWORD']}@localhost:3306/{os.environ['DB_NAME']}"
 engine =  create_engine(url=MYSQL_URL, connect_args={"charset": "utf8mb4"})
 
 local_session = sessionmaker(bind=engine, autoflush= False, autocommit= False)

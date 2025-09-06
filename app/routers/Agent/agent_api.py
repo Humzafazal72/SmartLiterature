@@ -1,7 +1,8 @@
+import os
 import json
 from fastapi import APIRouter, Depends
 from sse_starlette.sse import EventSourceResponse
-from app.database import User, get_db
+from app.database import User
 from .graph import build_graph
 from app.schemas import AgentInput
 from app.auth_logic.util import get_current_user
@@ -17,10 +18,12 @@ async def get_agent(input: AgentInput, chat_id: str,
     config = {"configurable": {"thread_id": chat_id}}
     message = HumanMessage(content=input.user_message)
 
+    os.makedirs(f"Data/{user.username}",exist_ok=True)
+    db_path = f"Data/{user.username}/{chat_id}.db"
     
     async def event_generator():
         try:
-            async with AsyncSqliteSaver.from_conn_string(f"Data/{chat_id}.db") as checkpointer:
+            async with AsyncSqliteSaver.from_conn_string(db_path) as checkpointer:
                 graph_app = build_graph().compile(checkpointer=checkpointer)
                 async for event in graph_app.astream({"messages": message}, config=config):
                     for node_name, node_output in event.items():
